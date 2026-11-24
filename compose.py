@@ -8,11 +8,18 @@ def F(n, s):
 SERB = lambda s: F("DejaVuSerif-Bold.ttf", s)
 SANB = lambda s: F("DejaVuSans-Bold.ttf", s)
 SAN = lambda s: F("DejaVuSans.ttf", s)
+def fb(s):
+    return SANB(s)
+def fr(s):
+    return SAN(s)
+def fsr(s):
+    return SAN(s)
 
 IVORY = (253, 248, 238); PINE = (16, 61, 44)
 CHERRY = (127, 29, 45); INK = (24, 32, 28); GREY = (96, 104, 98)
 PAPER = (255, 253, 247); LINE = (178, 168, 148)
 W, H = 1024, 1024
+MAP_STYLE = "dotted_map"
 
 CARDS = [
  (1, "WASHINGTON", "CONFIRMED", "Democrats Take the House, 258 to 173",
@@ -28,13 +35,13 @@ CARDS = [
   ["Freed after hours under rubble from", "a Russian strike; 6 people killed."],
   "BBC", "house"),
  (5, "KYIV REGION", "REPORTED", "14 Missing After Strike, Zelenskiy Says",
-  ["Russian drone hit a building in the", "kyiv region; 14 missing, he says."],
+  ["Russian drone hit a building in the", "Kyiv region; 14 missing, Zelenskiy says."],
   "JagranJosh", "building"),
  (6, "ANTALYA", "OFFICIAL", "COP31 Ends Without a Deal",
   ["cop31 ends with no agreement; the", "Turkiye draft omits 'fossil fuels'."],
   "BBC / AP", "globe"),
  (7, "GULF OF FINLAND", "REPORTED", "Russian Cargo Ship Still Burns",
-  ["Cargo ship still burns off finland", "after an attack, wires report."],
+  ["Cargo ship, Russian-flagged, still burns", "off Finland, in the Gulf of Finland."],
   "BBC", "ship"),
  (8, "WELLINGTON", "CONFIRMED", "India Post Record 720/9d",
   ["India declare at wellington, their", "highest Test total in New Zealand."],
@@ -49,13 +56,42 @@ CARDS = [
   ["Court rules on the 2017 campaign;", "700,000+ rohingya fled abroad."],
   "Guardian / NYT", "scales"),
  (12, "UNITED STATES", "REPORTED", "FBI Probes Database Hack",
-  ["The fbi probes a suspected hack of", "its criminal justice database."],
+  ["The FBI probes a suspected hack of", "its criminal justice database, AP says."],
   "AP wire", "shield"),
  (13, "LISBON", "REPORTED", "Lisbon Marches on Living Costs",
-  ["Thousands march in lisbon as anger", "over living costs spills out."],
+  ["Thousands march in Lisbon as anger", "over living costs spills out in Portugal."],
   "JagranJosh", "crowd"),
 ]
-ALSO = [
+# grid: (num, region, topic, src, head, deck, kind) — deck = fakta kartu tergabung
+grid = [
+ (1, "N. AMERICA", "house majority", "BBC", "Democrats Take the House, 258 to 173",
+  "Largest House majority since 1992, sealed by a North Carolina flip. Final count: Democrats 258, the other party 173.", "capitol"),
+ (2, "MIDDLE EAST", "gulf war", "AP live", "Tankers Burn as Gulf War Widens",
+  "Tankers ablaze as the Iran-US war spreads; IRGC warns of unrest.", "ship"),
+ (3, "MIDDLE EAST", "patriot claim", "AP / AFP", "IRGC Claims Patriot Radars Destroyed",
+  "IRGC claims 2 patriot radars hit at a US base in bahrain. A claim only.", "radar"),
+ (4, "EUROPE", "kyiv rescue", "BBC", "Kyiv Boy, 7, Pulled Alive From Rubble",
+  "Freed after hours under rubble from a Russian strike; 6 people killed.", "house"),
+ (5, "EUROPE", "kyiv missing", "JagranJosh", "14 Missing After Strike, Zelenskiy Says",
+  "Russian drone hit a building in the Kyiv region; 14 missing, Zelenskiy says.", "building"),
+ (6, "EUROPE", "cop31", "BBC / AP", "COP31 Ends Without a Deal",
+  "cop31 ends with no agreement; the Turkiye draft omits 'fossil fuels'.", "globe"),
+ (7, "EUROPE", "finland ship", "BBC", "Russian Cargo Ship Still Burns",
+  "Cargo ship, Russian-flagged, still burns off Finland, in the Gulf of Finland.", "ship"),
+ (8, "ASIA-PACIFIC", "wellington test", "ObserverVoice", "India Post Record 720/9d",
+  "India declare at wellington, their highest Test total in New Zealand.", "cricket"),
+ (9, "EUROPE", "atp finals", "BBC", "Alcaraz Beats Zverev, First ATP Crown",
+  "alcaraz beats zverev to win his first ATP Finals title.", "tennis"),
+ (10, "GLOBAL", "gold price", "ObserverVoice", "Gold Slides to $3,538 an Ounce",
+  "Down over $2,000 from the 2026 peak $5,595; off 2.41% on Friday.", "gold"),
+ (11, "SE ASIA", "icj ruling", "Guardian / NYT", "ICJ: Myanmar Guilty of Genocide",
+  "Court rules on the 2017 campaign; 700,000+ rohingya fled abroad.", "scales"),
+ (12, "N. AMERICA", "fbi hack", "AP wire", "FBI Probes Database Hack",
+  "The FBI probes a suspected hack of its criminal justice database, AP says.", "shield"),
+ (13, "EUROPE", "lisbon march", "JagranJosh", "Lisbon Marches on Living Costs",
+  "Thousands march in Lisbon as anger over living costs spills out in Portugal.", "crowd"),
+]
+BRIEFS = [
  "14 Houthi missile downed", "15 Hormuz swimmer for wildlife",
  "16 UN lethal AI talks go on", "17 More UFO footage out",
  "18 Albanese on cop31 failure", "19 Benghazi port blast",
@@ -74,10 +110,13 @@ REGIONS = [("MIDDLE EAST", 4, (178, 84, 60)), ("EUROPE", 10, (44, 96, 140)),
  ("N. AMERICA", 6, (127, 29, 45)), ("S. ASIA", 11, (24, 110, 80)),
  ("SE ASIA", 3, (150, 110, 30)), ("AFRICA", 2, (120, 70, 130)),
  ("ASIA-PACIFIC", 1, (40, 130, 130)), ("GLOBAL", 2, (90, 90, 90))]
-NUMBERS = [("258", "Democrat House seats"), ("173", "other House seats"),
+NUMS = [("258", "Democrat House seats"), ("173", "other House seats"),
  ("720/9d", "India total, Wellington"), ("$3,538", "gold per ounce"),
  ("14", "missing, Kyiv region"), ("65.9%", "IndiGo domestic share"),
  ("10,105", "NEET PG seats blocked"), ("75", "UP drill districts")]
+TL = ["00:02 UN AI talks on", "02:00 Albanese, Sydney", "AM Hormuz tankers ablaze",
+      "AM Kyiv boy freed", "Noon cop31 ends no deal", "Noon House 258-173",
+      "PM Benghazi blast", "PM gold $3,538"]
 DATECHECK = [
  "Xi-Trump-Putin summit - 19 Nov 2026, not today",
  "Russian missiles in Poland - 20 Nov 2026",
@@ -87,6 +126,7 @@ DATECHECK = [
  "South Korea minister quits - reported 22 Nov",
  "Indonesia factory fire itself - 22 Nov 2026",
 ]
+dc = "DATE CHECK - NOT TODAY: Xi-Trump-Putin summit - 19 Nov 2026, not today · Russian missiles in Poland - 20 Nov 2026 · SpiceJet fundraise approved - 18 Nov 2026 · Hyderabad bomb-threat email - sent 21 Nov 2026 · Paolo Bulgari death - reported 22 Nov 2026 · South Korea minister quits - reported 22 Nov · Indonesia factory fire itself - 22 Nov 2026"
 MAPROWS = [
  "          oooo        oo     oooooo  oooooooo     oo        ",
  "       ooooooooo  o   oooo  oooooooooooooooooo  oooo   o    ",
@@ -197,74 +237,77 @@ def header(d, variant):
         d.rectangle([xx, 184, xx + wseg - 2, 208], fill=col)
         d.text((xx + wseg / 2, 196), t, font=SANB(10), fill=(255, 255, 255), anchor="mm")
         xx += wseg
-    tl = ["00:02 UN AI talks on", "02:00 Albanese, Sydney", "AM Hormuz tankers ablaze",
-          "AM Kyiv boy freed", "Noon cop31 ends no deal", "Noon House 258-173",
-          "PM Benghazi blast", "PM gold $3,538"]
     d.rectangle([14, 214, 1010, 236], outline=LINE)
     xx = 20
-    for i, t in enumerate(tl):
+    for i, t in enumerate(TL):
         d.text((xx, 225), t, font=SAN(9), fill=INK, anchor="lm")
         xx += d.textlength(t, font=SAN(9)) + 12
 
-def card(d, x, y, w, h, c, lead=False):
+def _card(d, x, y, w, h, c, tf, ff, tstep, fstep, foff, is_lead):
     num, loc, status, title, facts, source, ic = c
     d.rectangle([x, y, x + w, y + h], fill=PAPER, outline=LINE)
-    d.rectangle([x, y, x + w, y + 15], fill=CHERRY if lead else PINE)
+    d.rectangle([x, y, x + w, y + 15], fill=CHERRY if is_lead else PINE)
     d.text((x + 5, y + 7), "%d  %s" % (num, loc), font=SANB(11), fill=(255, 255, 255), anchor="lm")
     tw = d.textlength(status, font=SANB(10))
     d.rectangle([x + w - tw - 12, y + 2, x + w - 3, y + 13], fill=(255, 253, 240))
     d.text((x + w - 7, y + 7), status, font=SANB(10), fill=CHERRY, anchor="rm")
     srct = "Src: " + source
     d.text((x + w - tw - 18, y + 7), srct, font=SAN(9), fill=(255, 253, 240), anchor="rm")
-    tf = SANB(28 if lead else 24)
     lines = wrap(d, title, tf, w - 14)
     yy = y + 19
     for ln in lines[:2]:
-        d.text((x + 6, yy), ln, font=tf, fill=INK); yy += 30 if lead else 26
+        d.text((x + 6, yy), ln, font=tf, fill=INK); yy += tstep
     icon(d, x + 6, yy + 2, ic, 30)
-    ff = SAN(15 if lead else 14)
     fl = []
     for f in facts: fl.extend(wrap(d, f, ff, w - 48))
     for i, ln in enumerate(fl[:3]):
-        d.text((x + 42, yy + 9 + i * 18), ln, font=ff, fill=INK)
+        d.text((x + 42, yy + foff + i * fstep), ln, font=ff, fill=INK)
+
+def lead(d, x, y, w, h, c):
+    _card(d, x, y, w, h, c, fb(28), fr(15), 30, 18, 9, True)
+
+def mini(d, x, y, w, h, c):
+    _card(d, x, y, w, h, c, fb(24), fr(13), 26, 15, 6, False)
 
 def bottom(d, top):
     # numbers strip
     d.rectangle([14, top, 1010, top + 44], fill=PAPER, outline=LINE)
     d.text((22, top + 10), "THE DAY IN", font=SANB(12), fill=CHERRY)
     d.text((22, top + 25), "NUMBERS", font=SANB(12), fill=CHERRY)
-    for i, (n, lab) in enumerate(NUMBERS):
+    for i, (n, lab) in enumerate(NUMS):
         r, col = divmod(i, 4)
         xx = 150 + col * 212; yy = top + 6 + r * 20
         d.text((xx, yy), n, font=SANB(15), fill=PINE)
         nw = d.textlength(n, font=SANB(15))
         d.text((xx + nw + 6, yy + 2), lab, font=SAN(10), fill=INK)
-    # map + date check
-    by = top + 50; bh = 918 - by
-    d.rectangle([14, by, 500, 918], fill=PAPER, outline=LINE)
+    # map + date check (compact band)
+    by = top + 50
+    d.rectangle([14, by, 500, by + 68], fill=PAPER, outline=LINE)
     d.text((22, by + 11), "WHERE IT HAPPENED - DOTTED WORLD MAP", font=SANB(13), fill=CHERRY)
-    mx, my, cell = 50, by + 24, 5.2
-    for r, row in enumerate(MAPROWS):
-        for ci, ch2 in enumerate(row):
-            if ch2 == "o":
-                d.ellipse([mx + ci * cell, my + r * cell, mx + ci * cell + 3.2, my + r * cell + 3.2], fill=(150, 160, 140))
-    for n, cx, cy in PINS:
-        px, py = mx + cx * cell, my + cy * cell
-        d.ellipse([px - 7, py - 7, px + 7, py + 7], fill=CHERRY)
-        d.text((px, py), str(n), font=SANB(9), fill=(255, 255, 255), anchor="mm")
-    d.rectangle([508, by, 1010, 918], fill=(250, 238, 232), outline=CHERRY)
+    if MAP_STYLE == "dotted_map":
+        mx, my, cell = 50, by + 22, 3.3
+        for r, row in enumerate(MAPROWS):
+            for ci, ch2 in enumerate(row):
+                if ch2 == "o":
+                    d.ellipse([mx + ci * cell, my + r * cell, mx + ci * cell + 2.1, my + r * cell + 2.1], fill=(150, 160, 140))
+        for n, cx, cy in PINS:
+            px, py = mx + cx * cell, my + cy * cell
+            d.ellipse([px - 6, py - 6, px + 6, py + 6], fill=CHERRY)
+            d.text((px, py), str(n), font=SANB(8), fill=(255, 255, 255), anchor="mm")
+    d.rectangle([508, by, 1010, by + 68], fill=(250, 238, 232), outline=CHERRY)
     d.text((516, by + 11), "DATE CHECK - NOT TODAY'S NEWS", font=SANB(13), fill=CHERRY)
     for i, t in enumerate(DATECHECK):
         col, r = divmod(i, 4)
-        d.text((516 + col * 248, by + 30 + r * 15), "- " + t, font=SAN(10), fill=INK)
-    # also on
-    d.rectangle([14, 922, 1010, 984], fill=PAPER, outline=LINE)
-    d.rectangle([14, 922, 190, 936], fill=CHERRY)
-    d.text((20, 929), "ALSO ON THE DAY", font=SANB(11), fill=(255, 255, 255), anchor="lm")
-    flow = " - ".join(ALSO)
-    lines = wrap(d, flow, SAN(8), 978)
-    for i, ln in enumerate(lines[:4]):
-        d.text((20, 941 + i * 11), ln, font=SAN(8), fill=INK)
+        d.text((516 + col * 248, by + 28 + r * 14), "- " + t, font=SAN(10), fill=INK)
+    # also on — full-width band, briefs at 10px
+    ay = by + 74
+    d.rectangle([14, ay, 1010, 984], fill=PAPER, outline=LINE)
+    d.rectangle([14, ay, 190, ay + 14], fill=CHERRY)
+    d.text((20, ay + 7), "ALSO ON THE DAY", font=SANB(11), fill=(255, 255, 255), anchor="lm")
+    flow = " - ".join(BRIEFS)
+    lines = wrap(d, flow, fsr(10), 978)
+    for i, ln in enumerate(lines[:6]):
+        d.text((20, ay + 19 + i * 12), ln, font=fsr(10), fill=INK)
     # footer
     d.rectangle([0, 986, W, H], fill=PINE)
     d.text((14, 993), "HOW SURE WE ARE: CONFIRMED = officials or final results on the record.",
@@ -279,18 +322,18 @@ def build(variant):
     d = DR.Draw(im)
     header(d, variant)
     if variant == "A":
-        card(d, 14, 242, 996, 78, CARDS[0], lead=True)
+        lead(d, 14, 242, 996, 78, CARDS[0])
         cw, ch, gap = 328, 106, 5
         for i, c in enumerate(CARDS[1:]):
             r, col = divmod(i, 3)
-            card(d, 14 + col * (cw + gap), 325 + r * (ch + gap), cw, ch, c)
+            mini(d, 14 + col * (cw + gap), 325 + r * (ch + gap), cw, ch, c)
         bottom(d, 325 + 4 * (ch + gap) + 3)
     else:
-        card(d, 14, 242, 996, 78, CARDS[0], lead=True)
+        lead(d, 14, 242, 996, 78, CARDS[0])
         cw, ch, gap = 244, 141, 6
         for i, c in enumerate(CARDS[1:]):
             r, col = divmod(i, 4)
-            card(d, 14 + col * (cw + gap), 325 + r * (ch + gap), cw, ch, c)
+            mini(d, 14 + col * (cw + gap), 325 + r * (ch + gap), cw, ch, c)
         bottom(d, 325 + 3 * (ch + gap) + 3)
     return im
 

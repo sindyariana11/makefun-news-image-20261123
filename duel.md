@@ -49,3 +49,29 @@ palet abu + muster (data koordinator; repo v3 tidak dibuka).
 - test_entry.py: LULUS (ukuran, IHDR 1024x1024, semua kata segar ada).
 - Hash jangkar: 296c0adc8c7df414276b01ac60a558597ad0660c
 - Hash commit staging: 9e55533705b042306212fe708c9521d2d068825c (commit isi; duel.md diperbarui di commit sesudahnya)
+
+## KOREKSI EKOR (24 Nov, koordinator ekor G4 — sebelum submit)
+Dua cacat build awal diperbaiki TANPA mengubah konsep/duel:
+1. Margin checker membaca 1/13: compose.py gaya bebas tidak terbaca AST
+   checker + 4 deck di bawah 2 fakta (kartu 5, 7, 12, 13) + ALSO ON 8px.
+   Obat pola armada (sama seperti ekor Ak15/Ak18/F1): compose.py
+   direstrukturisasi ke gaya armada (grid/NUMS/TL/BRIEFS/dc/PINS +
+   lead()/mini() dengan fb/fr/fsr) dan deck 4 kartu itu diperkaya HANYA
+   dengan fakta cerita pool yang sama: #5 menyebut Zelenskiy + Kyiv,
+   #7 "Russian-flagged ... Gulf of Finland", #12 atribusi AP,
+   #13 Lisbon + Portugal. Deck per kartu sesudah koreksi:
+   [6,2,2,2,3,2,3,2,2,5,2,2,2] — 100% >=2 fakta, rata-rata 2,69.
+2. Baris fakta kedua beberapa kartu meluber melewati batas bawah kartu
+   menimpa pita kartu berikutnya (terlihat di render penuh). Obat: font
+   deck grid 14->13px, langkah baris 18->15, offset fakta 9->6 — semua
+   baris fakta kini di dalam kartu (diverifikasi visual render penuh).
+   Pita ALSO ON digambar ulang full-width pada 10px (5 baris, semua
+   brief terbaca); peta titik dipadatkan ke pita yang sama (pin tetap
+   13 = jumlah kartu); DATE CHECK tetap 7 buangan bernama.
+- Margin checker sesudah koreksi: 13/13 LOLOS (0 GAGAL).
+- test_entry.py: LULUS. Uji 300px: masthead + 13 judul terbaca.
+- entry.png FINAL: 214.046 byte, 1024x1024, sha256
+  d1ab3f5d3c539b70db3463a8695c1da90a9b4108d26a36cb4dc3b3378be9aa6f
+- VONIS vs G3 BERDIRI: TETAP LEBIH KUAT — koreksi hanya menambah fakta
+  deck, keterbacaan, dan kerapian; tidak ada sumbu yang mundur
+  (ukuran 214.046 B tetap < G3 267.102 B).
