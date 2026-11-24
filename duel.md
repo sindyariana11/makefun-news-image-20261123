@@ -1,30 +1,51 @@
-# Duel varian — NI23 Gelombang 3, Akun 10 (THE FIRST EDITION)
+# DUEL NI23 G4 - Akun 10 - THE MORNING RECORD
+Judul submit: THE MORNING RECORD - Monday 23 November 2026: Democrats Take the House 258-173
 
-Judul submit: THE FIRST EDITION — Monday 23 November 2026: IRGC Claims Two Patriot Radars Hit in Bahrain
+## Duel A vs B (render 1024x1024, diperkecil ke 300x300)
+- A: grid 3 kolom, kartu 328px lebar, judul 24px, fakta 14px 2 baris penuh
+  di dalam kartu. Ukuran 212.105 byte.
+- B: grid 4 kolom, kartu 244px lebar; judul membungkus 3 baris, baris
+  header kartu sempit (lokasi bertabrakan dengan sumber/status), fakta
+  terpotong. Ukuran 201.540 byte.
+- Keterbacaan 300px: judul A terbaca sebagai blok teks tegas; B pecah
+  menjadi kolom sempit dan headernya bertumpuk.
+- PEMENANG: A (lebih terbaca di 300px; B hanya menang ukuran, bukan seri).
 
-## Tiga varian (satu compose.py, argumen palet/susunan)
-- A — abu muda koran, tinta hitam, aksen kuning mustard (palet akun). Strip angka hitam dengan angka kuning.
-- B — krem hangat, tinta biru tua, aksen biru. Masthead dan kartu terbaca, tetapi strip angka biru kurang kontras dan kesan korannya lebih lembut.
-- C — putih bersih, tinta marun, aksen merah tua. Bersih, tetapi aksen marun bertabrakan dengan chip merah Timur Tengah dan kotak DATE CHECK sehingga hierarki warna lead melemah.
+## Gerbang Tembak Pengganti vs entry berdiri G3
+Lawan: G3 "THE FIRST EDITION", 267.102 byte, sha 6b026f9f..., 13 kartu,
+palet abu + muster (data koordinator; repo v3 tidak dibuka).
+- Keterbacaan: A memakai 13 kartu besar yang sama lapangnya dengan judul
+  24-28px dan fakta 14px yang muat penuh; tidak ada teks meluber keluar
+  kartu (cacat render pertama sudah diperbaiki dan diverifikasi visual).
+- Perabot: A lengkap dan terverifikasi di gambar - kicker jujur
+  "52 reports cross-checked", masthead 66px + tanggal 44px, strip
+  harga/cuaca/pasar, strip 8 region berjumlah (total 39 = 13 kartu +
+  26 also-on), timeline UTC 8 slot, DAY IN NUMBERS 8 angka, peta titik
+  pin bernomor 1-13 + legenda, ALSO ON 26 cerita, DATE CHECK 7 buangan
+  bernama + bertanggal, footer HOW SURE 3 baris.
+- Kesetiaan: nol klaim sebagai fakta - kartu 3 berjudul "IRGC Claims..."
+  berchip CLAIM; kapal Rusia "still burns", bukan tenggelam; Kyiv 14
+  hilang dibingkai "Zelenskiy Says"; Demokrat 258-173 dibingkai sebagai
+  hasil/hitungan hari itu. DATE CHECK tidak bertabrakan dengan kartu
+  mana pun (SpiceJet di also-on = permohonan audit pilot 23 Nov; buangan
+  D3 = fundraise 18 Nov, peristiwa berbeda dan dibedakan redaksinya).
+- Keluasan: 39 cerita, 8 region, trio konsensus 23 Nov lengkap sebagai
+  kartu (Hormuz #2, IRGC Patriot #3, Kyiv #4/#5) + lead akun #43 Demokrat
+  sebagai kartu 1 terbesar.
+- Ukuran: 212.105 byte vs G3 267.102 byte - A lebih ramping.
+- VONIS: LEBIH KUAT dari G3 di semua sumbu terukur.
 
-## Penilaian
-- Kontras: A tertinggi (tinta hitam di atas abu muda; strip angka hitam-kuning paling menonjol di 300px).
-- Keterbacaan 300px: A — masthead, tanggal, judul lead, dan strip angka tetap terbaca jelas; judul 13 kartu grid terbaca sebagai judul tebal yang dapat dibedakan per kartu.
-- Kepadatan data: sama di ketiga varian (14 kartu utama + 28 brief ALSO ON = 42 cerita, 6 angka, peta 14 pin, timeline 5 slot, DATE CHECK 6 buangan).
+## Audit nol-batas
+- Nol klaim sebagai fakta, nol kontradiksi DATE CHECK, nol teks garbled
+  (render final dibaca visual penuh sesudah perbaikan terakhir).
+- Uji fakta silang: setiap angka di gambar cocok dengan pool
+  (258/173/1992, 720/9d, $3,538/$5,595/-2,41%, 14 hilang, 6 tewas,
+  anak 7 tahun, 700.000+, 65,9%, 10.105, 75 distrik, 7 kantong/50 hilang,
+  Rs28.000 crore, $5 juta, 16 Des, tanggal buangan 18-22 Nov).
 
-## Pemenang: varian A
-Alasan: palet resmi akun (abu muda koran, tinta hitam, mustard), kontras tertinggi, dan satu-satunya varian yang strip angkanya tetap mencolok sesudah dikecilkan.
-
-## Uji 300px
-entry.png dikecilkan ke 300×300 (/tmp/ni23g3-akun10-300.png) dan diperiksa visual: masthead "THE FIRST EDITION", tanggal "Monday 23 November 2026", judul lead, dan keenam angka strip masih terbaca; judul kartu grid masih terbaca sebagai baris judul. LULUS.
-
-## Trio lead
-Lead akun (pool #2, IRGC klaim radar Patriot Bahrain — atribusi "IRGC claims" di kartu) + pool #43 (Demokrat menang DPR 258–173) + pool #7 (COP31 berakhir tanpa kesepakatan), pilihan builder ini.
-
-## Kenapa lebih kuat dari entry G2 akun ini
-Entry G2 akun ini berkonsep "Toko Serba Ada" (lead G2 #34, emas jatuh) — susunan etalase dekoratif. Entry G3 ini halaman depan koran lurus: masthead raksasa, tanggal besar, lead paling besar sebagai kartu #1, teks besar yang terbaca di 300px, 42 cerita terstruktur (kartu bernomor + peta pin + ALSO ON), strip angka yang mengikat kartu, dan kotak DATE CHECK — jauh lebih padat, lebih terbaca, dan lebih setia pada kriteria juri (satu hari bernama, seleksi luas, terbaca, setia, craft).
-
-## Verifikasi teknis
-- entry.png: 267102 byte, sha256 6b026f9fdb2b687ffdf05bd581d0c534d8377fb8df905b9bf7a3ad8bdd70d400, IHDR 1024×1024 terverifikasi (struct byte 16–24).
-- Margin checker: 13/13 LOLOS.
-- main.py dijalankan dua kali dengan MAKEFUN_OUTPUT_DIR berbeda: keluaran byte-identik.
+## Berkas final
+- entry.png: 212.105 byte, 1024x1024, sha256
+  942ffc53a6c1d40f644a21ddbb81ca536719aca9ff23e6506703628784d65e8f
+- test_entry.py: LULUS (ukuran, IHDR 1024x1024, semua kata segar ada).
+- Hash jangkar: 296c0adc8c7df414276b01ac60a558597ad0660c
+- Hash commit staging: 9e55533705b042306212fe708c9521d2d068825c (commit isi; duel.md diperbarui di commit sesudahnya)

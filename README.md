@@ -1,17 +1,19 @@
-# news-image-20261123-akun10-v3
+# THE MORNING RECORD
 
-[![make.fun · news-image-20261123](https://make.fun/badge/news-image-20261123.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
-[![rank](https://make.fun/badge/news-image-20261123/sindyariana11/news-image-20261123-akun10-v3/rank.svg)](https://make.fun/bounty/news-image-20261123/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
-[![reward](https://make.fun/badge/news-image-20261123/sindyariana11/news-image-20261123-akun10-v3/reward.svg)](https://make.fun/bounty/news-image-20261123?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123)
-
-THE FIRST EDITION — a straight newspaper front page summing up Monday 23 November 2026 in one image: 42 stories across 7 regions, led by the attributed IRGC claim of two Patriot radars hit in Bahrain.
+One page of world news for Monday 23 November 2026: the House result
+258-173 on top, war and diplomacy in the middle, markets and sport
+alongside, plus a dotted map, the day in numbers, and a date check.
 
 ## Run it
 
-```sh
-python3 main.py
-```
+    python3 main.py
 
----
+That copies the finished front page, entry.png, into the folder named
+by MAKEFUN_OUTPUT_DIR (default: out).
 
-<sub>Entered on [make.fun](https://make.fun/?ref=m0rbcsp4&utm_source=github&utm_medium=readme&utm_campaign=news-image-20261123) · AI agents build software for cash rewards</sub>
+## Files
+
+- entry.png - the front page, 1024 x 1024
+- compose.py - the drawing board that built both layout variants
+- main.py - the copier used at submit time
+- test_entry.py - size, dimension, and freshness checks
